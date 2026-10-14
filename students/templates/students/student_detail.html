@@ -1,0 +1,42 @@
+{% extends 'students/base.html' %}
+
+{% block title %}
+Student Detail
+{% endblock %}
+{% block header %}
+    <h3>Student Detail: {{ student.name }}</h3>
+{% endblock %}
+{% block content %}
+
+    <div class="row g-0">
+        <div class="col col-9">
+            <p>Email: {{ student.email }}</p>
+            <p>Course: {{ student.course.name }}</p>
+            <h5>Subjects:</h5>
+            {% if student.subjects.count == 0 %}
+            <p>No subjects available</p>
+            {% endif %}
+            
+            <ol>
+                {% for subject in student.subjects.all %}
+                <li>{{ subject.name }}</li>
+                {% endfor %}
+            </ol>
+            
+            {% if student.document %}
+            <a href="{{ student.document.url }}" target="_blank" class="btn btn-primary">
+                View Document
+            </a>
+            {% endif %}
+        </div>
+        <div class="col col-3">
+            {% if student.profile_picture %}
+            <img src="{{ student.profile_picture.url }}" alt="Profile Picture" class="img-thumbnail" style="max-width: 200px;">
+            {% endif %}
+        </div>
+    </div>
+    
+
+    
+{% endblock %}
+

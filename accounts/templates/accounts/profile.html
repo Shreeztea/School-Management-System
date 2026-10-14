@@ -1,0 +1,32 @@
+{% extends "students/base.html" %}
+
+{% block title %}
+User Profile
+{% endblock %}
+
+{% block header %}
+<h1>User Profile</h1>
+{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+    {{request.user.is_authenticated}}
+    {{request.user.username}}
+    {{request.user.email}}
+    {{request.session.favorite_course}}
+
+    <p>Permission to add student:{{ perms.students.add_student }}</p>
+    <p>Permission to change student:{{ perms.students.change_student }}</p>
+
+{% else %}
+    <p>Please login to view this page</p>
+{% endif %}
+
+    <button onclick="greet()">Click Me</button>
+    
+    <script>
+        function greet() {
+            alert("Hello from JavaScript!");
+        }
+    </script>
+{% endblock %}

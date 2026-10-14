@@ -1,0 +1,35 @@
+<h1>AI Chat Assistant</h1>
+
+<hr>
+
+<h2>Previous Conversations</h2>
+
+{% for conversation in conversations %}
+<div>
+    <h3>{{ conversation.question }}</h3>
+    <p>{{ conversation.answer }}</p>
+    <small>{{ conversation.created_at }}</small>
+</div>
+{% empty %}
+<p>No conversations yet.</p>
+{% endfor %}
+
+
+<form method="post">
+    {% csrf_token %}
+
+    <label for="question">Ask a question</label>
+
+    <textarea id="question" name="question" required>{{ question }}</textarea>
+
+    <button type="submit">Ask AI</button>
+</form>
+
+{% if answer %}
+<h2>AI Response</h2>
+<p>{{ answer }}</p>
+{% endif %}
+
+{% if error %}
+<p>{{ error }}</p>
+{% endif %}

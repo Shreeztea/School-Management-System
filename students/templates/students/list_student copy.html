@@ -1,0 +1,68 @@
+{% extends 'students/base.html' %}
+    
+{% block title %}
+    Students List
+{% endblock %}
+
+
+{% block header %}
+    <div class="col-8">
+        <h1>Students</h1>
+    </div>
+    <div class="col-4 text-end">
+        {% if perms.students.add_student %}
+        <a href="{% url 'student_create' %}" class="btn btn-success">
+            Add Student
+        </a>
+        {% endif %}
+    </div>
+{% endblock %}
+{% block content %}
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Age</th>
+                <th scope="col">Address</th>
+                <th scope="col">Email</th>
+                <th scope="col">Course</th>
+                <th scope="col">Document</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <th scope="row">{{ student.id }}</th>
+                <td><a href="{% url 'student_detail' student.id %}">{{ student.name }}</a></td>
+                <td>{{ student.age }}</td>
+                <td>{{ student.address }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.course.name }}</td>
+                <td>
+                    {% if student.document %}
+                    Yes
+                    {% else %}
+                    No
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <input type="text" id="student-id">
+    <button onClick="search()">Search</button>
+    <div id="result"></div>
+
+    <script>
+        function search() {
+            const id = document.getElementById("student-id").value;
+            fetch(`/student-data/${id}/`)
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById("result").innerText = `${data.name} - ${data.email}`;
+                });
+        }
+
+    </script>
+{% endblock %}

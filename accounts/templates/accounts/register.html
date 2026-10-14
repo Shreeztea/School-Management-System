@@ -1,0 +1,23 @@
+{% extends "students/base.html" %}
+
+{% block title %}
+Register
+{% endblock %}
+
+{% block header %}
+<h1>Register</h1>
+{% endblock %}
+
+{% block content %}
+
+<form method="POST">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary">
+        Register
+    </button>
+</form>
+
+{% endblock %}
