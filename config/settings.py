@@ -88,11 +88,11 @@ DATABASES = {
     # }
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "school_management",
-        "USER": "shristishresthasemantic", # add your own username "postgres" here
-        "PASSWORD": "password", # add your own password here
-        "HOST": "localhost",
-        "PORT": "5432",
+        "NAME": os.getenv("DB_NAME", "school_management"),
+        "USER": os.getenv("DB_USER", "postgres"), # add your own username "postgres" here
+        "PASSWORD": os.getenv("DB_PASSWORD", ""), # add your own password here
+        "HOST": os.getenv("DB_HOST", "localhost"),
+        "PORT": os.getenv("DB_PORT", "5432"),
     }
 }
 
